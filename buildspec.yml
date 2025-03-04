@@ -1,0 +1,11 @@
+version: 0.2
+phases:
+  install:
+    commands:
+      - pip install --upgrade pip
+  build:
+    commands:
+      - docker build -t report4 .
+  post_build:
+    commands:
+      - echo "Docker build complete."
