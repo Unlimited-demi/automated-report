@@ -145,13 +145,7 @@ def generate_ai_report(data: dict) -> dict:
             logging.error("Empty response received from Gemini API")
             raise HTTPException(status_code=500, detail="Empty response from Gemini API")
         cleaned_text = clean_ai_response(response.text)
-        try:
-            ai_report = json.loads(cleaned_text)
-            logging.debug("AI report generated successfully: %s", ai_report)
-        except json.JSONDecodeError:
-            logging.exception("Failed to decode AI response as valid JSON")
-            raise HTTPException(status_code=500, detail="AI response is not valid JSON")
-        return ai_report
+        return cleaned_text    
     except Exception as e:
         logging.exception("Error generating AI report")
         raise HTTPException(status_code=500, detail=f"Error generating AI report: {str(e)}")
