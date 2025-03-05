@@ -2,3 +2,5 @@ fastapi
 uvicorn
 requests
 google-generativeai
+reportlab
+json5

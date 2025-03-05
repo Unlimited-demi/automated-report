@@ -108,15 +108,17 @@ def generate_ai_report(data: dict) -> dict:
       - PVI (Performance Variability Index): standard deviation of obligation, efficiency, and compliance.
     """
     prompt = (
+    
         "You are an AI that generates an Automated Supervisory Report for company supervisors. "
-        "This report is designed as a first level of oversight and must be highly explainable and human-readable. "
+        "This report is designed as a first level of oversight and must be highly explainable and human-readable. Also include what IPI and PVI ins measured out of "
         "You are provided with two sets of performance data:\n"
         "  1. 'unitsData': Contains performance data for each department or unit with custom metrics such as obligation, efficiency, compliance, and overall score.\n"
         "  2. 'overallData': Provides an overall performance summary for the organization.\n\n"
         "Your report should address the following:\n"
         "  - Identify which departments or units are performing well and explain how they are performing based on the data.\n"
         "  - Provide insights into areas that may need further attention.\n"
-        "  - Explain the two derived visualization metrics:\n"
+        "  - Explain the two derived visualization metrics: Explain what they are so executives know what they are and wont be confised seeing new numbers \n"
+        
         "      * Integrated Performance Index (IPI): Calculated as (obligation * 0.3) + (efficiency * 0.4) + (compliance * 0.3), representing the overall performance of a unit.\n"
         "      * Performance Variability Index (PVI): The standard deviation of obligation, efficiency, and compliance, indicating how balanced the performance is (a lower value means more consistency).\n\n"
         "Based on the input data, produce a clear, concise, and highly explainable report in valid JSON format with no markdown formatting. "
