@@ -117,7 +117,7 @@ def generate_ai_report(data: dict) -> dict:
         "Your report should address the following:\n"
         "  - Identify which departments or units are performing well and explain how they are performing based on the data.\n"
         "  - Provide insights into areas that may need further attention.\n"
-        "  - Explain the two derived visualization metrics: Explain what they are so executives know what they are and wont be confised seeing new numbers \n"
+        "  - Explain the two derived visualization metrics: Explain what they are so executives know what they are and wont be confised seeing new numbers\n"
         
         "      * Integrated Performance Index (IPI): Calculated as (obligation * 0.3) + (efficiency * 0.4) + (compliance * 0.3), representing the overall performance of a unit.\n"
         "      * Performance Variability Index (PVI): The standard deviation of obligation, efficiency, and compliance, indicating how balanced the performance is (a lower value means more consistency).\n\n"
@@ -145,7 +145,13 @@ def generate_ai_report(data: dict) -> dict:
             logging.error("Empty response received from Gemini API")
             raise HTTPException(status_code=500, detail="Empty response from Gemini API")
         cleaned_text = clean_ai_response(response.text)
-        return cleaned_text    
+        try:
+            ai_report = json.loads(cleaned_text)
+            logging.debug("AI report generated successfully: %s", ai_report)
+        except json.JSONDecodeError:
+            logging.exception("Failed to decode AI response as valid JSON")
+            raise HTTPException(status_code=500, detail="AI response is not valid JSON")
+        return ai_report
     except Exception as e:
         logging.exception("Error generating AI report")
         raise HTTPException(status_code=500, detail=f"Error generating AI report: {str(e)}")
