@@ -143,7 +143,7 @@ def generate_ai_report(data: dict) -> dict:
             logging.error("Empty response received from Gemini API")
             raise HTTPException(status_code=500, detail="Empty response from Gemini API")
         cleaned_text = clean_ai_response(response.text)
-               return cleaned_text    
+        return cleaned_text    
     except Exception as e:
         logging.exception("Error generating AI report")
         raise HTTPException(status_code=500, detail=f"Error generating AI report: {str(e)}")
